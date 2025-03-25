@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlogSpace - Categories</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">BlogSpace</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="write.html">Write Blog</a></li>
+                <li><a href="categories.html" class="active">Categories</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <main>
+        <section class="categories">
+            <h1>Browse by Category</h1>
+            <div class="category-list">
+                <div class="category-item" data-category="technology">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>Technology</h3>
+                    <p>Explore the latest in tech</p>
+                </div>
+                <div class="category-item" data-category="travel">
+                    <i class="fas fa-plane"></i>
+                    <h3>Travel</h3>
+                    <p>Adventures around the world</p>
+                </div>
+                <div class="category-item" data-category="food">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Food</h3>
+                    <p>Recipes and culinary experiences</p>
+                </div>
+                <div class="category-item" data-category="lifestyle">
+                    <i class="fas fa-heart"></i>
+                    <h3>Lifestyle</h3>
+                    <p>Living your best life</p>
+                </div>
+                <div class="category-item" data-category="health">
+                    <i class="fas fa-heartbeat"></i>
+                    <h3>Health</h3>
+                    <p>Wellness and fitness tips</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="category-posts">
+            <h2 id="selected-category">Select a category to view posts</h2>
+            <div class="posts-container" id="category-posts-container">
+                <!-- Category posts will be loaded here via JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 BlogSpace. All rights reserved.</p>
+    </footer>
+
+    <script src="categories.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+

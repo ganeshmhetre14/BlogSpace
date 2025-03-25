@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlogSpace - Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">BlogSpace</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="write.html">Write Blog</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="profile.html" class="active">Profile</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <main>
+        <section class="profile">
+            <div class="profile-header">
+                <div class="profile-image">
+                    <img src="https://via.placeholder.com/150" alt="Profile Image" id="profile-img">
+                </div>
+                <div class="profile-info">
+                    <h1 id="profile-name">John Doe</h1>
+                    <p id="profile-bio">Passionate writer and tech enthusiast</p>
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span id="posts-count">12</span>
+                            <span>Posts</span>
+                        </div>
+                        <div class="stat">
+                            <span id="followers-count">256</span>
+                            <span>Followers</span>
+                        </div>
+                        <div class="stat">
+                            <span id="following-count">124</span>
+                            <span>Following</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-tabs">
+                <button class="tab-btn active" data-tab="my-posts">My Posts</button>
+                <button class="tab-btn" data-tab="saved-posts">Saved Posts</button>
+                <button class="tab-btn" data-tab="edit-profile">Edit Profile</button>
+            </div>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="my-posts">
+                    <h2>My Blog Posts</h2>
+                    <div class="posts-container" id="my-posts-container">
+                        <!-- User posts will be loaded here via JavaScript -->
+                    </div>
+                </div>
+                <div class="tab-pane" id="saved-posts">
+                    <h2>Saved Posts</h2>
+                    <div class="posts-container" id="saved-posts-container">
+                        <!-- Saved posts will be loaded here via JavaScript -->
+                    </div>
+                </div>
+                <div class="tab-pane" id="edit-profile">
+                    <h2>Edit Profile</h2>
+                    <form id="profile-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" value="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="bio">Bio</label>
+                            <textarea id="bio" name="bio" rows="3">Passionate writer and tech enthusiast</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-image-url">Profile Image URL</label>
+                            <input type="url" id="profile-image-url" name="profile-image-url" value="https://via.placeholder.com/150">
+                        </div>
+                        <button type="submit" class="btn">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 BlogSpace. All rights reserved.</p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="profile.js"></script>
+</body>
+</html>
+

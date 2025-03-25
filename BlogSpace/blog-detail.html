@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlogSpace - Post Detail</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Additional styles for blog detail page */
+        .blog-detail {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .blog-header {
+            position: relative;
+        }
+        
+        .blog-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        
+        .blog-info {
+            padding: 2rem;
+        }
+        
+        .blog-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .blog-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .blog-author img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 0.8rem;
+        }
+        
+        .author-info span {
+            display: block;
+        }
+        
+        .author-name {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .publish-date {
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        .blog-category {
+            display: inline-block;
+            background-color: #e9f5ff;
+            color: #007bff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .blog-content {
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 2rem;
+        }
+        
+        .blog-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .blog-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .action-btn:hover {
+            color: #007bff;
+        }
+        
+        .action-btn i {
+            font-size: 1.2rem;
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .share-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-3px);
+        }
+        
+        .facebook {
+            background-color: #3b5998;
+        }
+        
+        .twitter {
+            background-color: #1da1f2;
+        }
+        
+        .linkedin {
+            background-color: #0077b5;
+        }
+        
+        .comments-section {
+            margin-top: 3rem;
+        }
+        
+        .comments-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .comments-count {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .comment-sort {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+            cursor: pointer;
+        }
+        
+        .comment-form {
+            margin-bottom: 2rem;
+        }
+        
+        .comment-input {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: vertical;
+            min-height: 100px;
+            margin-bottom: 1rem;
+            font-family: inherit;
+        }
+        
+        .comment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .comment {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .comment-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .comment-content {
+            flex: 1;
+        }
+        
+        .comment-author {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 0.3rem;
+        }
+        
+        .comment-date {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 0.8rem;
+        }
+        
+        .comment-text {
+            color: #444;
+            line-height: 1.6;
+            margin-bottom: 0.8rem;
+        }
+        
+        .comment-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .comment-action {
+            font-size: 0.9rem;
+            color: #666;
+            cursor: pointer;
+        }
+        
+        .comment-action:hover {
+            color: #007bff;
+        }
+        
+        .related-posts {
+            margin-top: 3rem;
+        }
+        
+        .related-posts h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+        
+        .back-to-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: #007bff;
+            font-weight: 500;
+        }
+        
+        .back-to-home:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .blog-image {
+                height: 300px;
+            }
+            
+            .blog-title {
+                font-size: 1.8rem;
+            }
+            
+            .blog-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .blog-actions {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .action-buttons, .share-buttons {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">BlogSpace</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="write.html">Write Blog</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <main>
+        <a href="index.html" class="back-to-home">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+        
+        <article class="blog-detail">
+            <div class="blog-header">
+                <img src="/placeholder.svg" alt="" class="blog-image" id="blog-image">
+            </div>
+            
+            <div class="blog-info">
+                <h1 class="blog-title" id="blog-title"></h1>
+                
+                <div class="blog-meta">
+                    <div class="blog-author">
+                        <img src="/placeholder.svg" alt="" id="author-image">
+                        <div class="author-info">
+                            <span class="author-name" id="author-name"></span>
+                            <span class="publish-date" id="publish-date"></span>
+                        </div>
+                    </div>
+                    
+                    <span class="blog-category" id="blog-category"></span>
+                </div>
+                
+                <div class="blog-content" id="blog-content">
+                    <!-- Blog content will be loaded here -->
+                </div>
+                
+                <div class="blog-actions">
+                    <div class="action-buttons">
+                        <button class="action-btn" id="like-btn">
+                            <i class="far fa-heart"></i> <span id="likes-count">0</span> Likes
+                        </button>
+                        <button class="action-btn" id="comment-btn">
+                            <i class="far fa-comment"></i> <span id="comments-count">0</span> Comments
+                        </button>
+                        <button class="action-btn" id="save-btn">
+                            <i class="far fa-bookmark"></i> Save
+                        </button>
+                    </div>
+                    
+                    <div class="share-buttons">
+                        <div class="share-btn facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </div>
+                        <div class="share-btn twitter">
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                        <div class="share-btn linkedin">
+                            <i class="fab fa-linkedin-in"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        
+        <section class="comments-section">
+            <div class="comments-header">
+                <h2 class="comments-count"><span id="total-comments">0</span> Comments</h2>
+                <div class="comment-sort">
+                    <span>Sort by:</span>
+                    <select id="comment-sort">
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                        <option value="popular">Most Popular</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="comment-form">
+                <textarea class="comment-input" placeholder="Write a comment..." id="comment-input"></textarea>
+                <button class="btn" id="submit-comment">Post Comment</button>
+            </div>
+            
+            <div class="comment-list" id="comment-list">
+                <!-- Comments will be loaded here -->
+            </div>
+        </section>
+        
+        <section class="related-posts">
+            <h2>Related Posts</h2>
+            <div class="posts-container" id="related-posts-container">
+                <!-- Related posts will be loaded here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 BlogSpace. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Blog detail page specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get post ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const postId = parseInt(urlParams.get('id'));
+            
+            if (!postId) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Load post data
+            loadPostData(postId);
+            
+            // Setup action buttons
+            setupActionButtons(postId);
+            
+            // Setup comment form
+            setupCommentForm(postId);
+            
+            // Setup mobile menu toggle
+            setupMobileMenu();
+        });
+        
+        // Load post data
+        function loadPostData(postId) {
+            const posts = getPostsFromLocalStorage();
+            const post = posts.find(p => p.id === postId);
+            
+            if (!post) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Update page title
+            document.title = `BlogSpace - ${post.title}`;
+            
+            // Update post details
+            document.getElementById('blog-image').src = post.image;
+            document.getElementById('blog-image').alt = post.title;
+            document.getElementById('blog-title').textContent = post.title;
+            document.getElementById('author-image').src = post.author.image;
+            document.getElementById('author-image').alt = post.author.name;
+            document.getElementById('author-name').textContent = post.author.name;
+            document.getElementById('publish-date').textContent = formatDate(post.date);
+            document.getElementById('blog-category').textContent = post.category.charAt(0).toUpperCase() + post.category.slice(1);
+            document.getElementById('likes-count').textContent = post.likes || 0;
+            
+            // Format and display content
+            const contentElement = document.getElementById('blog-content');
+            const paragraphs = post.content.split('\n\n');
+            
+            contentElement.innerHTML = '';
+            paragraphs.forEach(paragraph => {
+                const p = document.createElement('p');
+                p.textContent = paragraph;
+                contentElement.appendChild(p);
+            });
+            
+            // Load comments
+            loadComments(postId);
+            
+            // Load related posts
+            loadRelatedPosts(post);
+        }
+        
+        // Format date
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+        
+        // Get posts from local storage
+        function getPostsFromLocalStorage() {
+            const posts = localStorage.getItem('blogPosts');
+            return posts ? JSON.parse(posts) : [];
+        }
+        
+        // Get user profile from local storage
+        function getUserProfile() {
+            const profile = localStorage.getItem('userProfile');
+            return profile ? JSON.parse(profile) : {
+                name: "John Doe",
+                bio: "Passionate writer and tech enthusiast",
+                image: "https://via.placeholder.com/150",
+                posts: [1, 6],
+                savedPosts: [2, 3, 5]
+            };
+        }
+        
+        // Save user profile to local storage
+        function saveUserProfile(profile) {
+            localStorage.setItem('userProfile', JSON.stringify(profile));
+        }
+        
+        // Save posts to local storage
+        function savePostsToLocalStorage(posts) {
+            localStorage.setItem('blogPosts', JSON.stringify(posts));
+        }
+        
+        // Setup action buttons
+        function setupActionButtons(postId) {
+            const likeBtn = document.getElementById('like-btn');
+            const commentBtn = document.getElementById('comment-btn');
+            const saveBtn = document.getElementById('save-btn');
+            const shareButtons = document.querySelectorAll('.share-btn');
+            
+            // Like button
+            if (likeBtn) {
+                likeBtn.addEventListener('click', function() {
+                    toggleLike(postId);
+                });
+                
+                // Check if post is already liked
+                const likedPosts = JSON.parse(localStorage.getItem('likedPosts') || '[]');
+                if (likedPosts.includes(postId)) {
+                    likeBtn.innerHTML = `<i class="fas fa-heart"></i> <span id="likes-count">${document.getElementById('likes-count').textContent}</span> Likes`;
+                }
+            }
+            
+            // Comment button
+            if (commentBtn) {
+                commentBtn.addEventListener('click', function() {
+                    document.getElementById('comment-input').focus();
+                });
+            }
+            
+            // Save button
+            if (saveBtn) {
+                const profile = getUserProfile();
+                const isSaved = profile.savedPosts.includes(postId);
+                
+                if (isSaved) {
+                    saveBtn.innerHTML = '<i class="fas fa-bookmark"></i> Saved';
+                }
+                
+                saveBtn.addEventListener('click', function() {
+                    toggleSave(postId);
+                });
+            }
+            
+            // Share buttons
+            shareButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const postUrl = window.location.href;
+                    const postTitle = document.getElementById('blog-title').textContent;
+                    
+                    if (btn.classList.contains('facebook')) {
+                        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}`, '_blank');
+                    } else if (btn.classList.contains('twitter')) {
+                        window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(postTitle)}`, '_blank');
+                    } else if (btn.classList.contains('linkedin')) {
+                        window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(postUrl)}&title=${encodeURIComponent(postTitle)}`, '_blank');
+                    }
+                });
+            });
+        }
+        
+        // Toggle like
+        function toggleLike(postId) {
+            const likeBtn = document.getElementById('like-btn');
+            const likesCountElement = document.getElementById('likes-count');
+            
+            // Get liked posts from local storage
+            const likedPosts = JSON.parse(localStorage.getItem('likedPosts') || '[]');
+            const isLiked = likedPosts.includes(postId);
+            
+            // Get posts from local storage
+            const posts = getPostsFromLocalStorage();
+            const postIndex = posts.findIndex(p => p.id === postId);
+            
+            if (postIndex === -1) return;
+            
+            if (isLiked) {
+                // Unlike post
+                likedPosts.splice(likedPosts.indexOf(postId), 1);
+                posts[postIndex].likes = (posts[postIndex].likes || 1) - 1;
+                likeBtn.innerHTML = `<i class="far fa-heart"></i> <span id="likes-count">${posts[postIndex].likes}</span> Likes`;
+            } else {
+                // Like post
+                likedPosts.push(postId);
+                posts[postIndex].likes = (posts[postIndex].likes || 0) + 1;
+                likeBtn.innerHTML = `<i class="fas fa-heart"></i> <span id="likes-count">${posts[postIndex].likes}</span> Likes`;
+            }
+            
+            // Save liked posts to local storage
+            localStorage.setItem('likedPosts', JSON.stringify(likedPosts));
+            
+            // Save posts to local storage
+            savePostsToLocalStorage(posts);
+        }
+        
+        // Toggle save
+        function toggleSave(postId) {
+            const saveBtn = document.getElementById('save-btn');
+            const profile = getUserProfile();
+            const isSaved = profile.savedPosts.includes(postId);
+            
+            if (isSaved) {
+                // Unsave post
+                profile.savedPosts = profile.savedPosts.filter(id => id !== postId);
+                saveBtn.innerHTML = '<i class="far fa-bookmark"></i> Save';
+            } else {
+                // Save post
+                profile.savedPosts.push(postId);
+                saveBtn.innerHTML = '<i class="fas fa-bookmark"></i> Saved';
+            }
+            
+            // Save profile to local storage
+            saveUserProfile(profile);
+        }
+        
+        // Load comments
+        function loadComments(postId) {
+            const commentList = document.getElementById('comment-list');
+            const totalCommentsElement = document.getElementById('total-comments');
+            const commentsCountElement = document.getElementById('comments-count');
+            
+            // Get comments from local storage
+            const allComments = JSON.parse(localStorage.getItem('comments') || '{}');
+            const postComments = allComments[postId] || [];
+            
+            // Update comments count
+            totalCommentsElement.textContent = postComments.length;
+            commentsCountElement.textContent = postComments.length;
+            
+            // Sort comments by date (newest first)
+            postComments.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            // Display comments
+            commentList.innerHTML = '';
+            if (postComments.length > 0) {
+                postComments.forEach(comment => {
+                    const commentElement = createCommentElement(comment, postId);
+                    commentList.appendChild(commentElement);
+                });
+            } else {
+                commentList.innerHTML = '<p class="no-comments">No comments yet. Be the first to comment!</p>';
+            }
+            
+            // Setup comment sort
+            setupCommentSort(postId, postComments);
+        }
+        
+        // Create comment element
+        function createCommentElement(comment, postId) {
+            const commentElement = document.createElement('div');
+            commentElement.className = 'comment';
+            commentElement.innerHTML = `
+                <img src="${comment.authorImage}" alt="${comment.authorName}" class="comment-avatar">
+                <div class="comment-content">
+                    <h4 class="comment-author">${comment.authorName}</h4>
+                    <p class="comment-date">${formatDate(comment.date)}</p>
+                    <p class="comment-text">${comment.text}</p>
+                    <div class="comment-actions">
+                        <span class="comment-action like-comment" data-comment-id="${comment.id}">
+                            <i class="${comment.isLiked ? 'fas' : 'far'} fa-heart"></i> 
+                            <span class="comment-likes">${comment.likes || 0}</span> Likes
+                        </span>
+                        <span class="comment-action reply-comment" data-comment-id="${comment.id}">Reply</span>
+                    </div>
+                </div>
+            `;
+            
+            // Add event listeners
+            const likeCommentBtn = commentElement.querySelector('.like-comment');
+            const replyCommentBtn = commentElement.querySelector('.reply-comment');
+            
+            if (likeCommentBtn) {
+                likeCommentBtn.addEventListener('click', function() {
+                    toggleCommentLike(postId, comment.id);
+                });
+            }
+            
+            if (replyCommentBtn) {
+                replyCommentBtn.addEventListener('click', function() {
+                    replyToComment(postId, comment.id, comment.authorName);
+                });
+            }
+            
+            return commentElement;
+        }
+        
+        // Setup comment sort
+        function setupCommentSort(postId, comments) {
+            const commentSortSelect = document.getElementById('comment-sort');
+            
+            if (!commentSortSelect) return;
+            
+            commentSortSelect.addEventListener('change', function() {
+                const sortBy = this.value;
+                sortComments(postId, sortBy);
+            });
+        }
+        
+        // Sort comments
+        function sortComments(postId, sortBy) {
+            const commentList = document.getElementById('comment-list');
+            
+            // Get comments from local storage
+            const allComments = JSON.parse(localStorage.getItem('comments') || '{}');
+            const postComments = allComments[postId] || [];
+            
+            if (postComments.length === 0) return;
+            
+            // Sort comments
+            if (sortBy === 'newest') {
+                postComments.sort((a, b) => new Date(b.date) - new Date(a.date));
+            } else if (sortBy === 'oldest') {
+                postComments.sort((a, b) => new Date(a.date) - new Date(b.date));
+            } else if (sortBy === 'popular') {
+                postComments.sort((a, b) => (b.likes || 0) - (a.likes || 0));
+            }
+            
+            // Display comments
+            commentList.innerHTML = '';
+            postComments.forEach(comment => {
+                const commentElement = createCommentElement(comment, postId);
+                commentList.appendChild(commentElement);
+            });
+        }
+        
+        // Toggle comment like
+        function toggleCommentLike(postId, commentId) {
+            // Get comments from local storage
+            const allComments = JSON.parse(localStorage.getItem('comments') || '{}');
+            const postComments = allComments[postId] || [];
+            
+            // Find comment
+            const commentIndex = postComments.findIndex(c => c.id === commentId);
+            
+            if (commentIndex === -1) return;
+            
+            // Toggle like
+            postComments[commentIndex].isLiked = !postComments[commentIndex].isLiked;
+            
+            if (postComments[commentIndex].isLiked) {
+                postComments[commentIndex].likes = (postComments[commentIndex].likes || 0) + 1;
+            } else {
+                postComments[commentIndex].likes = (postComments[commentIndex].likes || 1) - 1;
+            }
+            
+            // Save comments to local storage
+            allComments[postId] = postComments;
+            localStorage.setItem('comments', JSON.stringify(allComments));
+            
+            // Reload comments
+            loadComments(postId);
+        }
+        
+        // Reply to comment
+        function replyToComment(postId, commentId, authorName) {
+            const commentInput = document.getElementById('comment-input');
+            
+            if (!commentInput) return;
+            
+            commentInput.value = `@${authorName} `;
+            commentInput.focus();
+            
+            // Scroll to comment form
+            commentInput.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Setup comment form
+        function setupCommentForm(postId) {
+            const commentForm = document.getElementById('submit-comment');
+            const commentInput = document.getElementById('comment-input');
+            
+            if (!commentForm || !commentInput) return;
+            
+            commentForm.addEventListener('click', function() {
+                const commentText = commentInput.value.trim();
+                
+                if (!commentText) {
+                    alert('Please enter a comment.');
+                    return;
+                }
+                
+                // Get user profile
+                const profile = getUserProfile();
+                
+                // Create new comment
+                const newComment = {
+                    id: Date.now(),
+                    authorName: profile.name,
+                    authorImage: profile.image,
+                    text: commentText,
+                    date: new Date().toISOString(),
+                    likes: 0,
+                    isLiked: false
+                };
+                
+                // Get comments from local storage
+                const allComments = JSON.parse(localStorage.getItem('comments') || '{}');
+                const postComments = allComments[postId] || [];
+                
+                // Add new comment
+                postComments.unshift(newComment);
+                
+                // Save comments to local storage
+                allComments[postId] = postComments;
+                localStorage.setItem('comments', JSON.stringify(allComments));
+                
+                // Clear comment input
+                commentInput.value = '';
+                
+                // Reload comments
+                loadComments(postId);
+            });
+        }
+        
+        // Load related posts
+        function loadRelatedPosts(currentPost) {
+            const relatedPostsContainer = document.getElementById('related-posts-container');
+            
+            if (!relatedPostsContainer) return;
+            
+            // Get posts from local storage
+            const posts = getPostsFromLocalStorage();
+            
+            // Filter related posts (same category, excluding current post)
+            const relatedPosts = posts.filter(post => 
+                post.category === currentPost.category && post.id !== currentPost.id
+            ).slice(0, 3);
+            
+            // Display related posts
+            relatedPostsContainer.innerHTML = '';
+            if (relatedPosts.length > 0) {
+                relatedPosts.forEach(post => {
+                    const postCard = createPostCard(post);
+                    relatedPostsContainer.appendChild(postCard);
+                });
+            } else {
+                relatedPostsContainer.innerHTML = '<p class="no-posts">No related posts found.</p>';
+            }
+        }
+        
+        // Create post card element
+        function createPostCard(post) {
+            const postCard = document.createElement('div');
+            postCard.className = 'post-card';
+            postCard.innerHTML = `
+                <div class="post-image">
+                    <img src="${post.image}" alt="${post.title}">
+                </div>
+                <div class="post-content">
+                    <span class="post-category">${post.category.charAt(0).toUpperCase() + post.category.slice(1)}</span>
+                    <h3 class="post-title">${post.title}</h3>
+                    <p class="post-excerpt">${post.excerpt}</p>
+                    <div class="post-meta">
+                        <div class="post-author">
+                            <img src="${post.author.image}" alt="${post.author.name}">
+                            <span>${post.author.name}</span>
+                        </div>
+                        <span>${formatDate(post.date)}</span>
+                    </div>
+                </div>
+            `;
+            
+            postCard.addEventListener('click', function() {
+                window.location.href = `blog-detail.html?id=${post.id}`;
+            });
+            
+            return postCard;
+        }
+        
+        // Mobile menu toggle
+        function setupMobileMenu() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu');
+            const nav = document.querySelector('nav');
+
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
+                });
+            }
+        }
+    </script>
+</body>
+</html>
+
